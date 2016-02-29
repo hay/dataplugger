@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "babyparse": "^0.4.3",
     "browser-request": "^0.3.3",
     "request": "^2.69.0",
     "tabletop": "^1.4.3"

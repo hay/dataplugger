@@ -1,5 +1,6 @@
 var plugDefs = {
-    'jsonget' : require('./plugdefs/jsonget.js')
+    'jsonget' : require('./plugdefs/jsonget.js'),
+    'csvget'  : require('./plugdefs/csvget.js')
 };
 
 function Dataplugger() {
@@ -49,3 +50,7 @@ Dataplugger.prototype = {
 }
 
 module.exports = Dataplugger;
+
+if (process.browser) {
+    window.Dataplugger = Dataplugger;
+}

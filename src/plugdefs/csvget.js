@@ -1,4 +1,5 @@
 var request = require('request');
+var Baby = require('babyparse');
 
 function Csvget(conf) {
     this.conf = conf;
@@ -11,8 +12,12 @@ Csvget.prototype = {
                 throw err;
             }
 
-            var data = JSON.parse(body);
-            callback(data);
+            var data = Baby.parse(body, {
+                header : true,
+                skipEmptyLines : true
+            });
+
+            callback(data.data);
         });
     }
 };
