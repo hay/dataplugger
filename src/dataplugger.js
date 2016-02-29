@@ -1,7 +1,8 @@
 var plugDefs = {
-    'jsonget'   : require('./plugdefs/jsonget'),
-    'csvget'    : require('./plugdefs/csvget'),
-    'fieldbook' : require('./plugdefs/fieldbook')
+    'jsonget'     : require('./plugdefs/jsonget'),
+    'csvget'      : require('./plugdefs/csvget'),
+    'fieldbook'   : require('./plugdefs/fieldbook'),
+    'googlesheet' : require('./plugdefs/googlesheet')
 };
 
 function Dataplugger() {
@@ -15,11 +16,15 @@ Dataplugger.prototype = {
         this.plugs[id] = data;
     },
 
+    getDefaultPlug : function() {
+        return this.defaultPlug;
+    },
+
     listPlugDefs : function() {
         return Object.keys(this.plugDefs);
     },
 
-    loadData : function(plugidOrCallback, iCallback) {
+    load : function(plugidOrCallback, iCallback) {
         var plugId, callback;
 
         // One argument
