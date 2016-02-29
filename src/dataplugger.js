@@ -2,13 +2,21 @@ var plugDefs = {
     'jsonget'     : require('./plugdefs/jsonget'),
     'csvget'      : require('./plugdefs/csvget'),
     'fieldbook'   : require('./plugdefs/fieldbook'),
-    'googlesheet' : require('./plugdefs/googlesheet')
+    'googlesheet' : require('./plugdefs/googlesheet'),
+    'googledoc'   : require('./plugdefs/googledoc')
 };
 
-function Dataplugger() {
+function Dataplugger(plugs) {
     this.defaultPlug = null;
     this.plugs = {};
     this.plugDefs = plugDefs;
+
+    if (typeof plugs === 'object') {
+        // If there are some plugs, add them
+        for (var id in plugs) {
+            this.addPlug(id, plugs[id]);
+        }
+    }
 }
 
 Dataplugger.prototype = {
