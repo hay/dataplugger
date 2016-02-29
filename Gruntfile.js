@@ -10,6 +10,17 @@ module.exports = function (grunt) {
             }
         },
 
+        babel : {
+            options : {
+                presets : ['es2015']
+            },
+            dist : {
+                files : {
+                    'dataplugger.browser.js' : 'dataplugger.browser.js'
+                }
+            }
+        },
+
         uglify : {
             dist : {
                 files : {
@@ -28,7 +39,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'browserify',
-        // 'uglify'
+        'babel',
+        'uglify'
     ]);
 
     grunt.registerTask('default', ['build']);
