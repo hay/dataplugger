@@ -2,9 +2,5 @@
     "name": "dataplugger",
     "version": "0.1.0",
     "main": "./dataplugger.browser.js",
-    "keywords": [
-        "mvc", "framework", "lightweight", "base", "events", "class", "data",
-        "server", "client", "browser"
-    ],
     "ignore" : ["node_modules", "*.html"]
 }
