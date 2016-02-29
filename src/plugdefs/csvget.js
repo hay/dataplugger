@@ -1,10 +1,10 @@
 var request = require('request');
 
-function Jsonget(conf) {
+function Csvget(conf) {
     this.conf = conf;
 }
 
-Jsonget.prototype = {
+Csvget.prototype = {
     load : function(callback) {
         request(this.conf.url, (err, res, body) => {
             if (err || res.statusCode !== 200) {
@@ -17,4 +17,4 @@ Jsonget.prototype = {
     }
 };
 
-module.exports = Jsonget;
+module.exports = Csvget;
