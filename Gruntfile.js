@@ -51,5 +51,10 @@ module.exports = function (grunt) {
         'uglify'
     ]);
 
+    grunt.registerTask('release', [
+        'build',
+        'bump:minor'
+    ]);
+
     grunt.registerTask('default', ['build']);
 };
