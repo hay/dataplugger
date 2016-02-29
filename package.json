@@ -1,5 +1,5 @@
 {
-  "names" : "dataplugger",
+  "name" : "dataplugger",
   "version" : "0.1.0",
   "main" : "dataplugger.js",
   "dependencies": {
