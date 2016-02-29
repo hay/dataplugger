@@ -5,7 +5,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         browserify : {
             dist : {
-                src : 'src/dataplugger.js',
+                src : 'dataplugger.js',
                 dest : 'dataplugger.browser.js'
             }
         },

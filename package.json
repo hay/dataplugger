@@ -1,4 +1,7 @@
 {
+  "names" : "dataplugger",
+  "version" : "0.1.0",
+  "main" : "dataplugger.js",
   "dependencies": {
     "async": "^1.5.2",
     "babyparse": "^0.4.3",

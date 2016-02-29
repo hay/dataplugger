@@ -15,6 +15,88 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         s(r[o]);
     }return s;
 })({ 1: [function (require, module, exports) {
+        (function (process) {
+            var plugDefs = {
+                'jsonget': require('./src/plugdefs/jsonget'),
+                'csvget': require('./src/plugdefs/csvget'),
+                'fieldbook': require('./src/plugdefs/fieldbook'),
+                'googlesheet': require('./src/plugdefs/googlesheet'),
+                'googledoc': require('./src/plugdefs/googledoc')
+            };
+
+            function Dataplugger(plugs) {
+                this.defaultPlug = null;
+                this.plugs = {};
+                this.plugDefs = plugDefs;
+
+                if ((typeof plugs === "undefined" ? "undefined" : _typeof(plugs)) === 'object') {
+                    // If there are some plugs, add them
+                    for (var id in plugs) {
+                        this.addPlug(id, plugs[id]);
+                    }
+                }
+            }
+
+            Dataplugger.prototype = {
+                addPlug: function addPlug(id, data) {
+                    this.plugs[id] = data;
+                },
+
+                getDefaultPlug: function getDefaultPlug() {
+                    return this.defaultPlug;
+                },
+
+                listPlugDefs: function listPlugDefs() {
+                    return Object.keys(this.plugDefs);
+                },
+
+                load: function load(plugidOrCallback, iCallback) {
+                    var plugId, callback;
+
+                    // One argument
+                    if (!callback && !this.defaultPlug) {
+                        throw new Error("No default plug set");
+                    }
+
+                    if (iCallback) {
+                        plugId = plugidOrCallback;
+                        callback = iCallback;
+                    } else {
+                        plugId = this.defaultPlug;
+                        callback = plugidOrCallback;
+                    }
+
+                    if (!this.plugs[plugId]) {
+                        throw new Error("Plug " + plugId + " not added");
+                    }
+
+                    if (!this.plugDefs[plugId]) {
+                        throw new Error("Plug " + plugId + " not available");
+                    }
+
+                    var plugConf = this.plugs[plugId];
+                    var plugDef = this.plugDefs[plugId];
+                    var plug = new plugDef(plugConf);
+
+                    plug.load(callback);
+                },
+
+                setDefaultPlug: function setDefaultPlug(id) {
+                    if (!this.plugDefs[id]) {
+                        throw new Error("Plug does not exist: " + id);
+                    }
+
+                    this.defaultPlug = id;
+                }
+            };
+
+            module.exports = Dataplugger;
+
+            if (process.browser) {
+                window.Dataplugger = Dataplugger;
+            }
+        }).call(this, require('_process'));
+    }, { "./src/plugdefs/csvget": 8, "./src/plugdefs/fieldbook": 9, "./src/plugdefs/googledoc": 10, "./src/plugdefs/googlesheet": 11, "./src/plugdefs/jsonget": 12, "_process": 5 }], 2: [function (require, module, exports) {
         (function (process, global) {
             /*!
              * async
@@ -1240,7 +1322,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                         }
             })();
         }).call(this, require('_process'), typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {});
-    }, { "_process": 4 }], 2: [function (require, module, exports) {
+    }, { "_process": 5 }], 3: [function (require, module, exports) {
         /*
         	Baby Parse
         	v0.4.1
@@ -1888,7 +1970,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                         global.Baby = Baby;
                     }
         })(typeof window !== 'undefined' ? window : this);
-    }, {}], 3: [function (require, module, exports) {
+    }, {}], 4: [function (require, module, exports) {
         // Browser Request
         //
         // Licensed under the Apache License, Version 2.0 (the "License");
@@ -2356,7 +2438,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             //UMD FOOTER START
         });
         //UMD FOOTER END
-    }, {}], 4: [function (require, module, exports) {
+    }, {}], 5: [function (require, module, exports) {
         // shim for using process in browser
 
         var process = module.exports = {};
@@ -2452,7 +2534,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         process.umask = function () {
             return 0;
         };
-    }, {}], 5: [function (require, module, exports) {
+    }, {}], 6: [function (require, module, exports) {
         (function (process) {
             (function () {
                 "use strict";
@@ -3016,89 +3098,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 }
             })();
         }).call(this, require('_process'));
-    }, { "_process": 4 }], 6: [function (require, module, exports) {
-        (function (process) {
-            var plugDefs = {
-                'jsonget': require('./plugdefs/jsonget'),
-                'csvget': require('./plugdefs/csvget'),
-                'fieldbook': require('./plugdefs/fieldbook'),
-                'googlesheet': require('./plugdefs/googlesheet'),
-                'googledoc': require('./plugdefs/googledoc')
-            };
-
-            function Dataplugger(plugs) {
-                this.defaultPlug = null;
-                this.plugs = {};
-                this.plugDefs = plugDefs;
-
-                if ((typeof plugs === "undefined" ? "undefined" : _typeof(plugs)) === 'object') {
-                    // If there are some plugs, add them
-                    for (var id in plugs) {
-                        this.addPlug(id, plugs[id]);
-                    }
-                }
-            }
-
-            Dataplugger.prototype = {
-                addPlug: function addPlug(id, data) {
-                    this.plugs[id] = data;
-                },
-
-                getDefaultPlug: function getDefaultPlug() {
-                    return this.defaultPlug;
-                },
-
-                listPlugDefs: function listPlugDefs() {
-                    return Object.keys(this.plugDefs);
-                },
-
-                load: function load(plugidOrCallback, iCallback) {
-                    var plugId, callback;
-
-                    // One argument
-                    if (!callback && !this.defaultPlug) {
-                        throw new Error("No default plug set");
-                    }
-
-                    if (iCallback) {
-                        plugId = plugidOrCallback;
-                        callback = iCallback;
-                    } else {
-                        plugId = this.defaultPlug;
-                        callback = plugidOrCallback;
-                    }
-
-                    if (!this.plugs[plugId]) {
-                        throw new Error("Plug " + plugId + " not added");
-                    }
-
-                    if (!this.plugDefs[plugId]) {
-                        throw new Error("Plug " + plugId + " not available");
-                    }
-
-                    var plugConf = this.plugs[plugId];
-                    var plugDef = this.plugDefs[plugId];
-                    var plug = new plugDef(plugConf);
-
-                    plug.load(callback);
-                },
-
-                setDefaultPlug: function setDefaultPlug(id) {
-                    if (!this.plugDefs[id]) {
-                        throw new Error("Plug does not exist: " + id);
-                    }
-
-                    this.defaultPlug = id;
-                }
-            };
-
-            module.exports = Dataplugger;
-
-            if (process.browser) {
-                window.Dataplugger = Dataplugger;
-            }
-        }).call(this, require('_process'));
-    }, { "./plugdefs/csvget": 8, "./plugdefs/fieldbook": 9, "./plugdefs/googledoc": 10, "./plugdefs/googlesheet": 11, "./plugdefs/jsonget": 12, "_process": 4 }], 7: [function (require, module, exports) {
+    }, { "_process": 5 }], 7: [function (require, module, exports) {
         var request = require('request');
 
         var http = {
@@ -3121,7 +3121,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         };
 
         module.exports = http;
-    }, { "request": 3 }], 8: [function (require, module, exports) {
+    }, { "request": 4 }], 8: [function (require, module, exports) {
         var http = require('../http');
         var Baby = require('babyparse');
 
@@ -3143,7 +3143,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         };
 
         module.exports = Csvget;
-    }, { "../http": 7, "babyparse": 2 }], 9: [function (require, module, exports) {
+    }, { "../http": 7, "babyparse": 3 }], 9: [function (require, module, exports) {
         var http = require('../http');
         var async = require('async');
 
@@ -3183,7 +3183,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         };
 
         module.exports = Fieldbook;
-    }, { "../http": 7, "async": 1 }], 10: [function (require, module, exports) {
+    }, { "../http": 7, "async": 2 }], 10: [function (require, module, exports) {
         var http = require('../http');
         var GOOGLE_DOC_API = 'https://docs.google.com/document/export?format=txt&id=';
 
@@ -3217,7 +3217,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         };
 
         module.exports = Googlesheet;
-    }, { "tabletop": 5 }], 12: [function (require, module, exports) {
+    }, { "tabletop": 6 }], 12: [function (require, module, exports) {
         var http = require('../http');
 
         function Jsonget(conf) {
@@ -3231,4 +3231,4 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         };
 
         module.exports = Jsonget;
-    }, { "../http": 7 }] }, {}, [6]);
+    }, { "../http": 7 }] }, {}, [1]);

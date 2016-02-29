@@ -1,9 +1,9 @@
 var plugDefs = {
-    'jsonget'     : require('./plugdefs/jsonget'),
-    'csvget'      : require('./plugdefs/csvget'),
-    'fieldbook'   : require('./plugdefs/fieldbook'),
-    'googlesheet' : require('./plugdefs/googlesheet'),
-    'googledoc'   : require('./plugdefs/googledoc')
+    'jsonget'     : require('./src/plugdefs/jsonget'),
+    'csvget'      : require('./src/plugdefs/csvget'),
+    'fieldbook'   : require('./src/plugdefs/fieldbook'),
+    'googlesheet' : require('./src/plugdefs/googlesheet'),
+    'googledoc'   : require('./src/plugdefs/googledoc')
 };
 
 function Dataplugger(plugs) {
