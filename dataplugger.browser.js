@@ -16,6 +16,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     }return s;
 })({ 1: [function (require, module, exports) {
         (function (process) {
+            // Note: if you want to use this in the browser,
+            // use dataplugger.browser.js or dataplugger.browser.min.js
+
             var plugDefs = {
                 'jsonget': require('./src/plugdefs/jsonget'),
                 'csvget': require('./src/plugdefs/csvget'),
@@ -24,7 +27,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 'googledoc': require('./src/plugdefs/googledoc')
             };
 
-            function Dataplugger(plugs) {
+            function DataPlugger(plugs) {
                 this.defaultPlug = null;
                 this.plugs = {};
                 this.plugDefs = plugDefs;
@@ -37,7 +40,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 }
             }
 
-            Dataplugger.prototype = {
+            DataPlugger.prototype = {
                 addPlug: function addPlug(id, data) {
                     this.plugs[id] = data;
                 },
@@ -90,10 +93,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
                 }
             };
 
-            module.exports = Dataplugger;
+            module.exports = DataPlugger;
 
             if (process.browser) {
-                window.Dataplugger = Dataplugger;
+                window.DataPlugger = DataPlugger;
             }
         }).call(this, require('_process'));
     }, { "./src/plugdefs/csvget": 8, "./src/plugdefs/fieldbook": 9, "./src/plugdefs/googledoc": 10, "./src/plugdefs/googlesheet": 11, "./src/plugdefs/jsonget": 12, "_process": 5 }], 2: [function (require, module, exports) {
