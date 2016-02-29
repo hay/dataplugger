@@ -1,6 +1,6 @@
 {
   "name": "dataplugger",
-  "version": "0.3.0",
+  "version": "0.1.0",
   "main": "dataplugger.js",
   "dependencies": {
     "async": "^1.5.2",

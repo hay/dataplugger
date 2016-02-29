@@ -9,7 +9,7 @@ var plugDefs = {
     'googledoc'   : require('./src/plugdefs/googledoc')
 };
 
-function Dataplugger(plugs) {
+function DataPlugger(plugs) {
     this.defaultPlug = null;
     this.plugs = {};
     this.plugDefs = plugDefs;
@@ -22,7 +22,7 @@ function Dataplugger(plugs) {
     }
 }
 
-Dataplugger.prototype = {
+DataPlugger.prototype = {
     addPlug : function(id, data) {
         this.plugs[id] = data;
     },
@@ -75,8 +75,8 @@ Dataplugger.prototype = {
     }
 }
 
-module.exports = Dataplugger;
+module.exports = DataPlugger;
 
 if (process.browser) {
-    window.Dataplugger = Dataplugger;
+    window.DataPlugger = DataPlugger;
 }

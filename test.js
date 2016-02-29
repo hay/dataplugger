@@ -6,11 +6,11 @@ var GDOC_ID = '1yov1-9_lZsy2rZIYO_0keSid5yQbol2KT0RF7LppxRE';
 
 // Only load this in Node
 if (typeof require === 'function') {
-    var Dataplugger = require('./dataplugger');
+    var DataPlugger = require('./dataplugger');
 }
 
 // We can either add plugs in the constructor...
-var dataplugger = new Dataplugger({
+var dataplugger = new DataPlugger({
     'jsonget' : {
         url : JSON_EXAMPLE_URL
     },
