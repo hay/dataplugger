@@ -1,4 +1,4 @@
-var request = require('request');
+var http = require('../http');
 
 function Jsonget(conf) {
     this.conf = conf;
@@ -6,14 +6,7 @@ function Jsonget(conf) {
 
 Jsonget.prototype = {
     load : function(callback) {
-        request(this.conf.url, (err, res, body) => {
-            if (err || res.statusCode !== 200) {
-                throw err;
-            }
-
-            var data = JSON.parse(body);
-            callback(data);
-        });
+        http.getJson(this.conf.url, callback);
     }
 };
 

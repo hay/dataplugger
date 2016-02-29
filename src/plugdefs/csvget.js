@@ -1,4 +1,4 @@
-var request = require('request');
+var http = require('../http');
 var Baby = require('babyparse');
 
 function Csvget(conf) {
@@ -7,11 +7,7 @@ function Csvget(conf) {
 
 Csvget.prototype = {
     load : function(callback) {
-        request(this.conf.url, (err, res, body) => {
-            if (err || res.statusCode !== 200) {
-                throw err;
-            }
-
+        http.get(this.conf.url, (body) => {
             var data = Baby.parse(body, {
                 header : true,
                 skipEmptyLines : true

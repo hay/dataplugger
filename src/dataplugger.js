@@ -1,6 +1,7 @@
 var plugDefs = {
-    'jsonget' : require('./plugdefs/jsonget.js'),
-    'csvget'  : require('./plugdefs/csvget.js')
+    'jsonget'   : require('./plugdefs/jsonget'),
+    'csvget'    : require('./plugdefs/csvget'),
+    'fieldbook' : require('./plugdefs/fieldbook')
 };
 
 function Dataplugger() {
@@ -18,19 +19,28 @@ Dataplugger.prototype = {
         return Object.keys(this.plugDefs);
     },
 
-    loadData : function(callback) {
-        if (!this.defaultPlug) {
+    loadData : function(plugidOrCallback, iCallback) {
+        var plugId, callback;
+
+        // One argument
+        if (!callback && !this.defaultPlug) {
             throw new Error("No default plug set");
         }
 
-        var plugId = this.defaultPlug;
+        if (iCallback) {
+            plugId = plugidOrCallback;
+            callback = iCallback;
+        } else {
+            plugId = this.defaultPlug;
+            callback = plugidOrCallback;
+        }
 
         if (!this.plugs[plugId]) {
-            throw new Error("Plug " + this.defaultPlug + " not added");
+            throw new Error("Plug " + plugId + " not added");
         }
 
         if (!this.plugDefs[plugId]) {
-            throw new Error("Plug " + this.defaultPlug + " not available");
+            throw new Error("Plug " + plugId + " not available");
         }
 
         var plugConf = this.plugs[plugId];
