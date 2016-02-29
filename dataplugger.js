@@ -1,3 +1,6 @@
+// Note: if you want to use this in the browser,
+// use dataplugger.browser.js or dataplugger.browser.min.js
+
 var plugDefs = {
     'jsonget'     : require('./src/plugdefs/jsonget'),
     'csvget'      : require('./src/plugdefs/csvget'),
